@@ -5,9 +5,7 @@ from io import BytesIO
 
 def search_for_movies(search_term):
     access = Cinemagoer()
-    search = access.search_movie(search_term)
-
-    return search
+    return access.search_movie(search_term)
 
 def get_movie_data(search):
 
@@ -17,21 +15,9 @@ def get_movie_data(search):
             access = Cinemagoer()
             movie = access.get_movie(film.movieID)
 
-            if 'title' in movie:
-                title = movie['title']
-            else:
-                title = 'None'
-
-            if 'rating' in movie:
-                rating = movie['rating']
-            else:
-                rating = 'None'
-
-            if 'year' in movie:
-                year = movie['year']
-            else:
-                year = 'None'
-
+            title = movie['title'] if 'title' in movie else 'None'
+            rating = movie['rating'] if 'rating' in movie else 'None'
+            year = movie['year'] if 'year' in movie else 'None'
             if 'cover url' in movie:
                 urlObj = requests.get(movie['cover url'])
                 img = Image.open(BytesIO(urlObj.content))
